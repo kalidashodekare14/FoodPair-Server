@@ -33,10 +33,21 @@ async function run() {
     const foodProduct =  client.db('FoodProduct').collection('Foods')
 
     app.get('/food_products', async(req, res)=>{
-      const rusult = await foodProduct.find().toArray()
+      console.log('pagination query', req.query)
+      const page = parseInt(req.query.page)
+      const size = parseInt(req.query.size)
+      const rusult = await foodProduct.find()
+      .skip(page * size)
+      .limit(size)
+      .toArray()
       res.send(rusult)
     })
 
+
+    app.get('/productCount', async(req, res) =>{
+      const count = await foodProduct.estimatedDocumentCount();
+      res.send({count})
+    })
 
 
     // Send a ping to confirm a successful connection
