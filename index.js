@@ -8,10 +8,6 @@ const port = process.env.POST || 5000
 app.use(cors())
 app.use(express.json())
 
-// kalidashodekare14
-// xk0xziBMadKHp1XJ
-
-
 
 const { MongoClient, ServerApiVersion } = require('mongodb');
 const uri = `mongodb+srv://${process.env.USER_NAME}:${process.env.USER_PASS}@cluster0.25k7y.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
@@ -30,7 +26,9 @@ async function run() {
     // Connect the client to the server	(optional starting in v4.7)
     // await client.connect();
 
+
     const foodProduct =  client.db('FoodProduct').collection('Foods')
+
 
     app.get('/food_products', async(req, res)=>{
       console.log('pagination query', req.query)
